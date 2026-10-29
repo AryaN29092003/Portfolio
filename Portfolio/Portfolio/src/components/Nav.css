@@ -1,0 +1,170 @@
+/* ═══════════════════════════════════════════════════════════
+   Desktop vertical strip
+   ───────────────────────────────────────────────────────────
+   The strip is a fixed column. Inside it, one <ul> is rotated
+   -90deg so it reads left-to-right (bottom-to-top visually).
+
+   KEY DIMENSIONS
+   --nav-strip = 32px   ← width of the visible gutter
+   --rail-x    = 32px   ← hairline position = right edge of strip
+
+   The rotated strip is (--nav-strip - 4px) tall, so the text
+   sits fully to the LEFT of the hairline with a 4px gap.
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-rail { display: none; }
+
+@media (min-width: 800px) {
+  .nav-rail {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--rail-x);
+    height: 100vh;
+    z-index: 30;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .nav-rail__strip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    /* spans the full viewport height */
+    width: 100vh;
+    /* height = strip width minus the 4px gap to the hairline */
+    height: calc(var(--rail-x) - 4px);
+
+    /* rotate -90deg around top-left then slide up so the bottom
+       edge of the rotated strip aligns with the left edge of the
+       hairline (= var(--rail-x) - 4px from the screen left) */
+    transform-origin: top left;
+    transform: rotate(-90deg) translateX(-100%);
+
+    list-style: none;
+    margin: 0;
+    padding: 0 clamp(0.9rem, 2vh, 1.6rem);
+    box-sizing: border-box;
+    pointer-events: all;
+  }
+
+  /* Colour: white on dark sections, dark ink on light sections */
+  .nav-rail__strip a {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    color: #ffffff;
+    transition: color 0.5s ease, opacity 0.2s;
+    position: relative;
+  }
+  /* body gets class "nav-on-light" when a light section is centred */
+  body.nav-on-light .nav-rail__strip a {
+    color: #11162e;
+  }
+  .nav-rail__strip a:hover { opacity: 0.55; }
+
+  /* Underline indicator on hover */
+  .nav-rail__strip a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s var(--ease);
+  }
+  .nav-rail__strip a:hover::after,
+  .nav-rail__strip a:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Name: slightly heavier to distinguish from nav links */
+  .nav-rail__name {
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile: slim top bar + full-screen overlay
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  padding: 1.1rem clamp(20px, 5vw, 40px);
+  pointer-events: none;
+}
+.nav-top__name,
+.nav-top__toggle {
+  pointer-events: all;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.nav-top__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.nav-top__toggle {
+  appearance: none;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.nav-top__sheet { display: none; }
+
+.nav-top--open {
+  inset: 0;
+  background: var(--night);
+  align-items: flex-start;
+  flex-wrap: wrap;
+  pointer-events: all;
+  mix-blend-mode: normal;
+}
+.nav-top--open .nav-top__name,
+.nav-top--open .nav-top__toggle {
+  mix-blend-mode: normal;
+  color: #eef0fa;
+}
+.nav-top--open .nav-top__sheet {
+  position: absolute;
+  inset: 5rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem clamp(20px, 5vw, 40px);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 8vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.nav-top--open .nav-top__sheet a {
+  color: #eef0fa;
+  text-decoration: none;
+}
+
+@media (min-width: 800px) {
+  .nav-top { display: none; }
+}

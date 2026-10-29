@@ -1,0 +1,219 @@
+.work__bento {
+  grid-template-areas:
+    'a a b b'
+    'a a e1 e2'
+    'c c e3 now';
+  grid-auto-rows: minmax(170px, auto);
+}
+
+.tile--project {
+  padding: 0;
+}
+.tile--project .tile__heading {
+  height: 100%;
+  font: inherit;
+}
+.tile__button {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.25rem 1.4rem;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tile__button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.tile__button:focus-visible {
+  outline: none;
+}
+.tile--project:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.tile--project .tile__summary {
+  margin-bottom: auto;
+  max-width: 40ch;
+}
+.tile__hint {
+  align-self: flex-end;
+}
+.work__bento .tile--project:first-child .tile__title {
+  font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+  letter-spacing: -0.03em;
+}
+
+/* Hover shows what the project is built with; touch devices always show it. */
+.tile--project .tile__stack {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.tile--project:hover .tile__stack,
+.tile--project:focus-within .tile__stack,
+.tile--project[data-open='true'] .tile__stack {
+  opacity: 1;
+  transform: none;
+}
+@media (hover: none) {
+  .tile--project .tile__stack {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tile--project:hover {
+  background: var(--surface-hover);
+  border-color: var(--signal);
+}
+.tile--project[data-open='true'] {
+  background: var(--surface-hover);
+  border-color: var(--signal);
+  box-shadow: inset 0 0 0 1px var(--signal);
+}
+
+.tile--now .tile__title::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: var(--signal);
+  vertical-align: 0.1em;
+}
+
+/* Expanded case study ------------------------------------------------------- */
+.case {
+  display: grid;
+  grid-template-rows: 0fr;
+  max-width: 1180px;
+  transition: grid-template-rows 0.55s var(--ease);
+}
+.case[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+.case__clip {
+  min-height: 0;
+  overflow: hidden;
+}
+.case__grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: 2rem 2.5rem;
+  margin-top: 12px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.case__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.case__meta dt {
+  margin-top: 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.case__meta dd {
+  font-size: 1rem;
+  color: var(--muted);
+}
+.case__links {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1.1rem;
+}
+.case__figure {
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0d1230;
+}
+.case__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  object-position: top center;
+}
+.case__figure--empty {
+  display: grid;
+  place-items: center;
+  min-height: 100px;
+  padding: 1rem;
+  text-align: center;
+}
+.case__figure figcaption {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.case__cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.case__cols h4 {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+}
+.case__cols p,
+.case__cols li {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.case__cols ul {
+  display: grid;
+  gap: 0.6rem;
+  padding-left: 1.1rem;
+}
+
+@media (max-width: 899px) {
+  .work__bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'a a'
+      'b b'
+      'c c'
+      'e1 e2'
+      'e3 now';
+  }
+  .case__grid {
+    grid-template-columns: 1fr;
+  }
+  .case__cols {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 559px) {
+  .work__bento {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'a' 'b' 'c' 'now';
+  }
+  .work__bento .tile--empty {
+    display: none;
+  }
+}
