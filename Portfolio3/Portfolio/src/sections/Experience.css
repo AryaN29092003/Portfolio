@@ -1,0 +1,52 @@
+.experience__bento {
+  grid-template-areas:
+    'nw nw vl vl'
+    'li td ed e1'
+    'ce ce e2 e3';
+  grid-auto-rows: minmax(150px, auto);
+}
+.tile--role .tile__when {
+  margin-bottom: 0.4rem;
+}
+.tile--role .tile__org {
+  margin-bottom: 0.6rem;
+  color: var(--fg);
+}
+.tile--large .tile__title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  letter-spacing: -0.03em;
+}
+.tile--large .tile__summary + .tile__summary {
+  margin-top: 0.5rem;
+}
+.tile--role {
+  transition: background-color 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+@media (hover: hover) {
+  .tile--role:hover {
+    background: var(--surface-hover);
+    border-color: var(--signal);
+  }
+}
+
+@media (max-width: 899px) {
+  .experience__bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'nw nw'
+      'vl vl'
+      'li td'
+      'ed e1'
+      'ce ce'
+      'e2 e3';
+  }
+}
+@media (max-width: 559px) {
+  .experience__bento {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'nw' 'vl' 'li' 'td' 'ed' 'ce';
+  }
+  .experience__bento .tile--empty {
+    display: none;
+  }
+}

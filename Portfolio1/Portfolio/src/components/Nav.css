@@ -1,0 +1,85 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem clamp(20px, 3vw, 40px) 1.1rem var(--content-x);
+  color: #fff;
+  mix-blend-mode: difference;
+  font-family: var(--font-display);
+}
+.nav a {
+  text-decoration: none;
+}
+.nav__name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.nav__links {
+  display: none;
+  gap: 1.75rem;
+  font-size: 0.98rem;
+}
+.nav__links a {
+  position: relative;
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+.nav__links a:hover::after,
+.nav__links a:focus-visible::after {
+  transform: scaleX(1);
+}
+.nav__toggle {
+  appearance: none;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.nav__sheet {
+  display: none;
+}
+@media (min-width: 800px) {
+  .nav__links {
+    display: flex;
+  }
+  .nav__toggle {
+    display: none;
+  }
+}
+@media (max-width: 799px) {
+  .nav--open {
+    mix-blend-mode: normal;
+    background: var(--night);
+    inset: 0;
+    align-items: flex-start;
+  }
+  .nav--open .nav__sheet {
+    position: absolute;
+    inset: 5rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 2rem var(--gutter-right) 2rem var(--content-x);
+    font-size: clamp(2rem, 9vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+}

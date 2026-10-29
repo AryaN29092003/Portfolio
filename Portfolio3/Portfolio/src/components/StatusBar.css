@@ -1,0 +1,33 @@
+.status {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem clamp(20px, 3vw, 40px) 0.9rem calc(var(--content-x) - 0.7rem);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.status > span {
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(13, 18, 48, 0.82);
+  color: #eef0fa;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.status__label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .status__label {
+    display: none;
+  }
+}
