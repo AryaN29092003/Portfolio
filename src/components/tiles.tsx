@@ -213,10 +213,11 @@ export function getTiles(id: SectionId | 'case', mobile: boolean, pid: ProjectId
 }
 
 export function Tile({ s, i, mobile, onAct }: { s: TileSpec; i: number; mobile: boolean; onAct: (a: Act) => void }) {
-  const style = {
+  const vars: Record<string, string> = {
     ...(mobile ? { gridColumn: `span ${s.span}` } : { gridArea: s.area.join('/') }),
     '--d': `${mobile ? (0.3 + i * 0.06).toFixed(2) : (0.35 + i * 0.07).toFixed(2)}s`,
-  } as CSSProperties;
+  };
+  const style = vars as CSSProperties;
   const cls = `tile t-${s.kind} ${s.cls ?? ''} ${s.act ? 'nav' : ''}`;
   const inner = <>{s.body}{s.arrow && <Arrow />}</>;
   const a = s.act;

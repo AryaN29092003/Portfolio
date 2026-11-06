@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { Desktop } from './components/Desktop';
 import { Mobile } from './components/Mobile';
 import type { Act } from './components/tiles';
@@ -41,11 +41,19 @@ function Fit({ w, h, top, bottom, extendX, children }: { w: number; h: number; t
     window.addEventListener('resize', f);
     return () => window.removeEventListener('resize', f);
   }, [w, h, extendX]);
+  const vars: Record<string, string | number> = {
+    width: w + ex,
+    height: h + ey,
+    transform: `translate(-50%,-50%) scale(${k})`,
+    '--offx': `${ex / 2}px`,
+    '--offy': `${ey / 2}px`,
+  };
+  const stageStyle = vars as CSSProperties;
   return (
     <div className="fit" style={{ background: `linear-gradient(180deg,${top} 50%,${bottom} 50%)` }}>
       <div
         className="fitin"
-        style={{ width: w + ex, height: h + ey, transform: `translate(-50%,-50%) scale(${k})`, ['--offx' as string]: `${ex / 2}px`, ['--offy' as string]: `${ey / 2}px` }}
+        style={stageStyle}
       >
         {children}
       </div>
