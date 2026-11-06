@@ -1,29 +1,29 @@
-# Arya Nazare, portfolio
+# Portfolio V2
 
-React, Vite and TypeScript, deployed to GitHub Pages with GitHub Actions. Plain CSS, no animation library.
+Single-page portfolio: a dark eclipse ring with a Delphinus constellation. Each star opens a section.
+Desktop hovers show a preview card; click opens a full-screen glass page. On phones, tap a star to preview,
+tap again to open, and swipe sideways between sections. Two palettes ship (aurora, nebula) with a small switch bottom-left.
 
-## Run locally
+## Run
+
 ```bash
 npm install
-npm run dev
+npm run dev        # local dev server
+npm run build      # type-check + production build into dist/
 ```
 
-## Deploy
-1. Push to `main` (or `master`).
-2. In the repo go to **Settings > Pages** and set **Source** to **GitHub Actions**.
-3. The site appears at `https://aryan29092003.github.io/Portfolio/`.
+## Where things live
 
-`vite.config.ts` sets `base: '/Portfolio/'` to match the repo name. If you rename the repo, or move to a custom domain, change it.
+- `src/data/content.ts`: all copy (roles, projects, about, contact, case study). Edit text here.
+- `src/data/design.ts`: palettes, star positions, section icons and reveal origins.
+- `src/art/art.ts`: generated ring artwork for both palettes (decorative; not meant to be hand-edited).
+- `src/components/Desktop.tsx` and `Mobile.tsx`: the two layouts. `tiles.tsx` holds the tile grid for every page.
+- `src/styles/`: `desktop.css` (scoped under `.d`) and `mobile.css` (scoped under `.m`).
+- `public/resume.pdf`: the resume the Resume page opens and downloads.
 
-## Edit content
-All copy lives in `src/data/`. Anything marked `[CONFIRM]` is a placeholder to check or replace before publishing:
-- `site.ts`: headline, intro, links, "How I work" text
-- `projects.ts`: case studies (problem, architecture, contribution, links)
-- `experience.ts`: roles, dates, certification
-- `experiments.ts`: side projects
+## Notes
 
-## Before going live
-- Put your resume at `public/resume.pdf`. Use a copy without your phone number, since the site is public.
-- Add project screenshots or diagrams to `public/media/` and replace the dashed placeholder in `src/sections/CaseStudy.tsx`.
-- Search the repo for `[CONFIRM]` and resolve each one.
-- Keep client details out of the healthcare pipelines case study.
+- The layout switches to the mobile design at 760px wide and below.
+- Esc closes the case study, then the page. The browser back button also closes an open page.
+- Numbers shown on tiles (`8+`, `3`, `90%`) come from the previous site's copy; change them in `content.ts` if you have better headline figures.
+ 

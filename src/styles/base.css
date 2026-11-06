@@ -1,0 +1,13 @@
+html,body,#root{margin:0;height:100%;background:#030B1A;overflow:hidden}
+body{font-family:'Bricolage Grotesque Variable','Bricolage Grotesque',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior:none}
+.fit{position:fixed;inset:0;overflow:hidden}
+.fitin{position:absolute;left:50%;top:50%;transform-origin:center center}
+button{font:inherit}
+a.mail{color:inherit;text-decoration:none;display:block}
+button.copy{background:none;color:inherit;font:inherit;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.m .dots .dot{border:0;padding:0}
+.m .pfoot .lnk{background:none;border:0;font:inherit;letter-spacing:inherit;text-transform:inherit}
+.m button.collapse,.d button.collapse{color:#fff;font-family:inherit;letter-spacing:.3px}
+@media (prefers-reduced-motion: reduce){.d .ringwrap *,.m .ringwrap *{animation:none!important}}
+.m .pfoot .lnk{font-size:12px}
+.d,.m{width:100%;height:100%}
